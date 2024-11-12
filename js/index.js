@@ -104,11 +104,12 @@ window.addEventListener('DOMContentLoaded', () => {
         radioElement = document.querySelector('#' + r);
 
         if (quizItem.a == i) {
-          if (radioElement.checked) {
-            //change background color of li element here
-            liElement.style.background = 'lightblue';
-            // code for task 1 goes here
-            // moved it here since we already checked if it was the right answer there
+          liElement.style.background = 'lightblue';
+        }
+
+        if (radioElement.checked) {
+          //change background color of li element here
+          if (quizItem.a == i) {
             score++;
             console.log('score added', score);
           } else {
@@ -139,9 +140,12 @@ window.addEventListener('DOMContentLoaded', () => {
       timeVal--;
       let tMin = Math.floor(timeVal / 60);
       // I'll get back to you...
-      // tMin = "00" + tMin;
+      tMin = "00" + tMin;
+      tMin = tMin.slice(-2);
       // tMin = tMin.rig
       let tSec = timeVal % 60;
+      tSec = "00" + tSec;
+      tSec = tSec.slice(-2);
       timer.textContent = `${tMin}:${tSec}`;
       // when timer runs out, including when it goes 00:00
       if (timeVal <= 0) {
