@@ -16,16 +16,20 @@
 
       4.X Reload the page when the reset button is clicked (hint: search window.location)
 
-      5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
+      5.X Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
   const start = document.querySelector('#start');
   const submit = document.querySelector('#btnSubmit');
   const reset = document.querySelector('#btnReset');
+  const timer = document.querySelector('#time');
+  let timeVal = 10;
+  let timeRun = false;
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
+    timeRun = true;
   });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -75,6 +79,17 @@ window.addEventListener('DOMContentLoaded', () => {
       quizWrap.innerHTML = quizDisplay;
     });
   };
+  
+  function disableBtns() {
+    for (let i = 0; i < quizArray.length; i++) {
+      submit.disabled = true;
+      // pretty sure I could do this with query selector and wild card... later
+      const elems0 = document.getElementById(`radio_${i}_0`).disabled = true;
+      const elems1 = document.getElementById(`radio_${i}_1`).disabled = true;
+      const elems2 = document.getElementById(`radio_${i}_2`).disabled = true;
+      const elems3 = document.getElementById(`radio_${i}_3`).disabled = true;
+    }
+  }
 
   // Calculate the score
   const calculateScore = () => {
@@ -103,7 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
     // also should be disabling the radio buttons
-
+    disableBtns()
     // could do this more cleanly, but oh well
     const disSco = document.querySelector('#score');
     disSco.textContent = `Score: ${score}/${quizArray.length}`; // using this instead of innerHTML since I'm not adding tag
@@ -114,6 +129,29 @@ window.addEventListener('DOMContentLoaded', () => {
   // event for refresh could be done outside, but since submit is already here
   // ok, just dumping reload ends in a inifinite loop, whoops
   reset.addEventListener('click', () => {window.location.reload()});
+
+  // I'll just add the timer functions here, make it easier to see
+  // function to start timer, think just count down on set interval?
+  setInterval(() => {
+    // pretty sure I should be doing this outside, so setInterval doesn't get called when timer doesn't run
+    // also display time should be a seperate function so I can change the timer without the 01:00 flashing for breif second
+    if (timeRun){
+      timeVal--;
+      let tMin = Math.floor(timeVal / 60);
+      // I'll get back to you...
+      // tMin = "00" + tMin;
+      // tMin = tMin.rig
+      let tSec = timeVal % 60;
+      timer.textContent = `${tMin}:${tSec}`;
+      // when timer runs out, including when it goes 00:00
+      if (timeVal <= 0) {
+        timeRun = false;
+        calculateScore();
+      }
+    }
+  }, 1000);
+  // function to end timer, since submit also has to
+  // trigger when timer goes
 
 
   // call the displayQuiz function
