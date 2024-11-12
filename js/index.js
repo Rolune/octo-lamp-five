@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const submit = document.querySelector('#btnSubmit');
   const reset = document.querySelector('#btnReset');
   const timer = document.querySelector('#time');
-  let timeVal = 10;
+  let timeVal = 80;
   let timeRun = false;
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
