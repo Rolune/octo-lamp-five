@@ -24,12 +24,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const submit = document.querySelector('#btnSubmit');
   const reset = document.querySelector('#btnReset');
   const timer = document.querySelector('#time');
-  let timeVal = 80;
+  let timeVal = 70;
   let timeRun = false;
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
     timeRun = true;
+    displayTime();
   });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -138,15 +139,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // also display time should be a seperate function so I can change the timer without the 01:00 flashing for breif second
     if (timeRun){
       timeVal--;
-      let tMin = Math.floor(timeVal / 60);
-      // I'll get back to you...
-      tMin = "00" + tMin;
-      tMin = tMin.slice(-2);
-      // tMin = tMin.rig
-      let tSec = timeVal % 60;
-      tSec = "00" + tSec;
-      tSec = tSec.slice(-2);
-      timer.textContent = `${tMin}:${tSec}`;
+      displayTime();
       // when timer runs out, including when it goes 00:00
       if (timeVal <= 0) {
         timeRun = false;
@@ -154,6 +147,18 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   }, 1000);
+
+  function displayTime() {
+    let tMin = Math.floor(timeVal / 60);
+    // I'll get back to you...
+    tMin = "00" + tMin;
+    tMin = tMin.slice(-2);
+    // tMin = tMin.rig
+    let tSec = timeVal % 60;
+    tSec = "00" + tSec;
+    tSec = tSec.slice(-2);
+    timer.textContent = `${tMin}:${tSec}`;
+  }
   // function to end timer, since submit also has to
   // trigger when timer goes
 
