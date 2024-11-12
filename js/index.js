@@ -7,20 +7,22 @@
   The tasks you need to do are below.
 
     TASKS TODO:
-      1. Calculate the score as the total of the number of correct answers
+      1.X Calculate the score as the total of the number of correct answers
 
-      2. Add an Event listener for the submit button, which will display the score and highlight 
+      2.X Add an Event listener for the submit button, which will display the score and highlight 
          the correct answers when the button is clicked. Use the code from lines 67 to 86 to help you.
 
       3. Add 2 more questions to the app (each question must have 4 options).
 
-      4. Reload the page when the reset button is clicked (hint: search window.location)
+      4.X Reload the page when the reset button is clicked (hint: search window.location)
 
       5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
   const start = document.querySelector('#start');
+  const submit = document.querySelector('#btnSubmit');
+  const reset = document.querySelector('#btnReset');
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
@@ -66,6 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Calculate the score
   const calculateScore = () => {
     let score = 0;
+    console.log('calc score');
     quizArray.map((quizItem, index) => {
       for (let i = 0; i < 4; i++) {
         //highlight the li if it is the correct answer
@@ -75,18 +78,30 @@ window.addEventListener('DOMContentLoaded', () => {
         radioElement = document.querySelector('#' + r);
 
         if (quizItem.a == i) {
-          //change background color of li element here
-        }
-
-        if (radioElement.checked) {
-          // code for task 1 goes here
+          if (radioElement.checked) {
+            //change background color of li element here
+            liElement.style.background = 'lightblue';
+            // code for task 1 goes here
+            // moved it here since we already checked if it was the right answer there
+            score++;
+            console.log('score added', score);
+          } else {
+            liElement.style.background = 'red';
+          }
         }
       }
     });
+    // could do this more cleanly, but oh well
+    const disSco = document.querySelector('#score');
+    disSco.textContent = `Score: ${score}/${quizArray.length}`; // using this instead of innerHTML since I'm not adding tag
   };
 
-  // guessing event listener for submit has to be added here? since I wouldn't be able to reference displayQuiz() outside this block
+  // guessing event listener for submit has to be added here? since I wouldn't be able to reference calculateScore() outside this block
+  submit.addEventListener('click', calculateScore);
   // event for refresh could be done outside, but since submit is already here
+  // ok, just dumping reload ends in a inifinite loop, whoops
+  reset.addEventListener('click', () => {window.location.reload()});
+
 
   // call the displayQuiz function
   /*
