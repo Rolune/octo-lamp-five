@@ -121,6 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     // also should be disabling the radio buttons
     disableBtns()
+    timeRun = false;
     // could do this more cleanly, but oh well
     const disSco = document.querySelector('#score');
     disSco.textContent = `Score: ${score}/${quizArray.length}`; // using this instead of innerHTML since I'm not adding tag
