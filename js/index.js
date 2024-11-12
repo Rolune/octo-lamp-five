@@ -12,7 +12,7 @@
       2.X Add an Event listener for the submit button, which will display the score and highlight 
          the correct answers when the button is clicked. Use the code from lines 67 to 86 to help you.
 
-      3. Add 2 more questions to the app (each question must have 4 options).
+      3.X Add 2 more questions to the app (each question must have 4 options).
 
       4.X Reload the page when the reset button is clicked (hint: search window.location)
 
@@ -46,6 +46,16 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    {
+      q: 'What is the final frontier',
+      o: ['Backyard', 'I dunno', 'SPAAAAACE', 'Under the Sea', 'can i?'],
+      a: 2,
+    },
+    {
+      q: "I'll think of something later, read my mind",
+      o: ['7', '4', '9', '8'],
+      a: 1,
+    },
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -53,6 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const quizWrap = document.querySelector('#quizWrap');
     let quizDisplay = '';
     quizArray.map((quizItem, index) => {
+      // if I get the time, make it so number of answer doesn't have to be 4
       quizDisplay += `<ul class="list-group">
                    Q - ${quizItem.q}
                     <li class="list-group-item mt-2" id="li_${index}_0"><input type="radio" name="radio${index}" id="radio_${index}_0"> ${quizItem.o[0]}</li>
@@ -91,6 +102,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+    // also should be disabling the radio buttons
+
     // could do this more cleanly, but oh well
     const disSco = document.querySelector('#score');
     disSco.textContent = `Score: ${score}/${quizArray.length}`; // using this instead of innerHTML since I'm not adding tag
