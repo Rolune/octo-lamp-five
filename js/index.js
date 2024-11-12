@@ -57,8 +57,8 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 2,
     },
     {
-      q: "I'll think of something later, read my mind",
-      o: ['7', '4', '9', '8'],
+      q: "Odd one out",
+      o: ['Catan', 'Starcraft', 'Risk', 'Checker'],
       a: 1,
     },
   ];
@@ -159,8 +159,6 @@ window.addEventListener('DOMContentLoaded', () => {
     tSec = tSec.slice(-2);
     timer.textContent = `${tMin}:${tSec}`;
   }
-  // function to end timer, since submit also has to
-  // trigger when timer goes
 
 
   // call the displayQuiz function
