@@ -58,9 +58,14 @@ window.addEventListener('DOMContentLoaded', () => {
     },
     {
       q: "Odd one out",
-      o: ['Catan', 'Starcraft', 'Risk', 'Checker'],
-      a: 1,
+      o: ['Catan', 'Monopoly', 'Risk', 'Checker', `Uno`, `Starcraft`],
+      a: 5,
     },
+    {
+      q: 'Ans is false',
+      o: ['true', 'false'],
+      a: 1,
+    }
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -70,13 +75,18 @@ window.addEventListener('DOMContentLoaded', () => {
     quizArray.map((quizItem, index) => {
       // if I get the time, make it so number of answer doesn't have to be 4
       quizDisplay += `<ul class="list-group">
-                   Q - ${quizItem.q}
-                    <li class="list-group-item mt-2" id="li_${index}_0"><input type="radio" name="radio${index}" id="radio_${index}_0"> ${quizItem.o[0]}</li>
-                    <li class="list-group-item" id="li_${index}_1"><input type="radio" name="radio${index}" id="radio_${index}_1"> ${quizItem.o[1]}</li>
-                    <li class="list-group-item"  id="li_${index}_2"><input type="radio" name="radio${index}" id="radio_${index}_2"> ${quizItem.o[2]}</li>
-                    <li class="list-group-item"  id="li_${index}_3"><input type="radio" name="radio${index}" id="radio_${index}_3"> ${quizItem.o[3]}</li>
-                    </ul>
-                    <div>&nbsp;</div>`;
+                   Q - ${quizItem.q}`;
+      for (let i = 0; i < quizItem.o.length; i++) {
+        console.log("quiz no", i);
+        
+        if (i === 0) {
+          quizDisplay += `<li class="list-group-item mt-2" id="li_${index}_0"><input type="radio" name="radio${index}" id="radio_${index}_0"> ${quizItem.o[i]}</li>`;
+        } else {
+          quizDisplay += `<li class="list-group-item" id="li_${index}_${i}"><input type="radio" name="radio${index}" id="radio_${index}_${i}"> ${quizItem.o[i]}</li>`
+        }
+      }
+      quizDisplay += `</ul>
+                      <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
     });
   };
@@ -85,10 +95,11 @@ window.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < quizArray.length; i++) {
       submit.disabled = true;
       // pretty sure I could do this with query selector and wild card... later
-      const elems0 = document.getElementById(`radio_${i}_0`).disabled = true;
-      const elems1 = document.getElementById(`radio_${i}_1`).disabled = true;
-      const elems2 = document.getElementById(`radio_${i}_2`).disabled = true;
-      const elems3 = document.getElementById(`radio_${i}_3`).disabled = true;
+      console.log('i is out of range?', i);
+      console.log(quizArray[i]);
+      for (let j = 0; j < quizArray[i]['o'].length; j++) {
+        document.getElementById(`radio_${i}_${j}`).disabled = true;
+      }
     }
   }
 
@@ -97,7 +108,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     console.log('calc score');
     quizArray.map((quizItem, index) => {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < quizItem.o.length; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
