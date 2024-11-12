@@ -85,6 +85,13 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // guessing event listener for submit has to be added here? since I wouldn't be able to reference displayQuiz() outside this block
+  // event for refresh could be done outside, but since submit is already here
+
   // call the displayQuiz function
+  /*
+  dom element added at start,
+  but not visible until start button changes display from none -> block
+  */
   displayQuiz();
 });

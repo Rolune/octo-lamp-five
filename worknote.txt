@@ -1,0 +1,8 @@
+first run
+no errors?
+time doesn't tick down
+html seems fine
+button doesn't do anything
+
+checking where button is triggered and how
+ok, so the individual quiz item is added to dom via func displayQuiz() 
